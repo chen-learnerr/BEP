@@ -1,0 +1,223 @@
+@charset "utf-8";
+
+body {
+    background: #eeeeee;
+}
+
+/** 清除内外边距 **/
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+
+/* structural elements 结构元素 */
+
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+
+/* list elements 列表元素 */
+
+pre,
+
+/* text formatting elements 文本格式元素 */
+
+form,
+fieldset,
+legend,
+button,
+input,
+textarea,
+
+/* form elements 表单元素 */
+
+th,
+td
+/* table elements 表格元素 */
+
+    {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+/* IE6兼容问题的清除浮动 */
+.clearfix {
+    zoom: 1;
+}
+
+/* 完美轻拂动 */
+.clearfix:after {
+    clear: both;
+    display: block;
+    content: '';
+}
+
+/* 总的框 */
+.content {
+    width: 780px;
+    background: #ffffff;
+    border-radius: 8px;
+    margin: 30px auto;
+    font-size: 17px;
+    color: #666;
+}
+
+/* 最上面的标题（如“当前位置>项目列表>发布新的项目”） */
+.content .information-title {
+    width: 100%;
+    font-size: 16px;
+    height: 75px;
+    line-height: 75px;
+    margin-left: 30px;
+    position: relative;
+}
+
+/* 编辑，保存行 */
+.content .information-title .fac-information{
+    position: absolute;
+    left:636px ;
+    top:20px;
+}
+
+.save{
+    margin-left: 30px ;
+}
+
+/* 大的部分（包括标题和信息）*/
+.content .unit-information {
+    width: 100%;
+}
+
+/* 标题栏 */
+.content .unit-information .unit {
+    background: #e6f2f2;
+    height: 35px;
+    font-size: 16px;
+    margin-bottom: 30px;
+    line-height: 35px;
+    padding-top: 5px;
+
+}
+
+/* 标题信息 */
+.content .unit-information .unit .unit-content {
+    border-left: 4px solid #0e8384;
+    color: #333;
+    padding-left: 26px;
+}
+
+/* 填写信息栏 */
+.content .unit-information .unit-list {
+    padding-left: 30px;
+    padding-right: 30px;
+    color: #666;
+}
+
+/* 总输入框 */
+input {
+    color: #666;
+    padding-left: 8px;
+}
+
+/* 分栏式左浮动 */
+.content .unit-information .unit-list .fl {
+    width: 360px;
+    float: left;
+}
+
+/* 分栏式右浮动 */
+.content .unit-information .unit-list .fr {
+    width: 360px;
+    float: right;
+}
+
+/* 分栏式每条信息间的间距 */
+.content .unit-information .unit-list .list {
+    margin-bottom: 30px;
+}
+
+/* 分栏式输入框属性 */
+.content .unit-information .unit-list .list input {
+    outline: none;
+    height: 28px;
+    width: 200px;
+    border: 1px solid #ccc;
+}
+
+/* 详细信息栏 */
+.content .unit-information .unit-list .reason {
+    width:100%;
+}
+
+/* 详细信息栏标签 */
+.content .unit-information .unit-list .reason .p {
+    height:30px;
+    line-height: 30px;
+    font-size: 17px;
+}
+
+/* 详细信息框div */
+.content .unit-information .unit-list .reason div{
+    position: relative;
+    left:90px;
+    top:-19px;
+    width:690px;
+    height:200px;
+}
+
+/* 详细信息框大小 */
+.content .unit-information .unit-list .reason div textarea{
+    width:80%;
+    height:100%;
+    outline: none;
+    border:1px solid #cccccc;
+    resize: none;
+}
+
+/* 单行单列每条信息间差距 */
+.content .unit-information .unit-list .oneline {
+    margin-bottom: 30px;
+    margin-left: 30%;
+}
+
+.content .unit-information .unit-list .oneline input{
+    outline: none;
+    height: 28px;
+    width: 200px;
+    border: 1px solid #ccc;
+}
+
+/* 最后一个部分 */
+.lastpart {
+    padding-bottom: 45px;
+}
+
+b,
+strong {
+    font-weight: normal;
+}
+
+i,
+em {
+    font-style: normal;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}

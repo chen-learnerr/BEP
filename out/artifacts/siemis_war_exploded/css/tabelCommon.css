@@ -1,0 +1,186 @@
+@charset "utf-8";
+
+body {
+    background: #eeeeee;
+    width: 100%;
+}
+
+/** 清除内外边距 **/
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+
+/* structural elements 结构元素 */
+
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+
+/* list elements 列表元素 */
+
+pre,
+
+/* text formatting elements 文本格式元素 */
+
+form,
+fieldset,
+legend,
+button,
+input,
+textarea,
+
+/* form elements 表单元素 */
+
+th,
+td
+/* table elements 表格元素 */
+
+    {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+/* IE6兼容问题的清除浮动 */
+.clearfix {
+    zoom: 1;
+}
+
+/* 完美轻拂动 */
+.clearfix:after {
+    clear: both;
+    display: block;
+    content: '';
+}
+
+/* 总的框 */
+.content {
+    width: 1200px;
+    background: #ffffff;
+    border-radius: 8px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 17px;
+    color: #666;
+}
+
+/* 最上面的标题（如“当前位置>项目列表>发布新的项目”） */
+.content .information-title {
+    width: 100%;
+    font-size: 16px;
+    height: 75px;
+    line-height: 75px;
+    margin-left: 30px;
+    position: relative;
+}
+
+/* 编辑，保存行 */
+.content .information-title .fac-information{
+    position: absolute;
+    left: 1056px ;
+    top:20px;
+}
+
+.save{
+    margin-left: 30px ;
+}
+
+/* 大的部分（包括标题和内容）*/
+.content .unit-information {
+    width: 100%;
+}
+
+/* 标题栏 */
+.content .unit-information .unit {
+    background: #e6f2f2;
+    height: 35px;
+    font-size: 16px;
+    margin-bottom: 30px;
+    line-height: 35px;
+    padding-top: 5px;
+
+}
+
+/* 标题信息 */
+.content .unit-information .unit .unit-content {
+    border-left: 4px solid #0e8384;
+    color: #333;
+    padding-left: 26px;
+}
+
+/* 内容栏 */
+.content .unit-information .unit-list {
+    padding-left: 20px;
+    padding-right: 20px;
+    color: #666;
+}
+
+/* 总输入框 */
+input {
+    color: #666;
+    padding-left: 8px;
+}
+
+.content .unit-information .unit-list .querycol {
+    width: 290px;
+    height: 30px;
+    margin-bottom: 20px;
+    float: left;
+}
+
+.content .unit-information .unit-list .querycol input {
+    outline: none;
+    height: 28px;
+    width: 170px;
+    border: 1px solid #ccc;
+}
+
+table {
+    width: 1160px;
+    min-height: 25px;
+    line-height: 25px;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+table,
+table tr th,
+table tr td {
+    border: 1px solid #000000;
+}
+
+/* 最后一个部分 */
+.lastpart {
+    padding-bottom: 45px;
+}
+
+b,
+strong {
+    font-weight: normal;
+}
+
+i,
+em {
+    font-style: normal;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
