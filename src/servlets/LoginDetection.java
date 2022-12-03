@@ -12,15 +12,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import beans.AdminLog;
-import beans.StuInfo;
-import beans.StuLog;
-import dao.AdminLogDao;
+import beans.TenderLog;
+import beans.BidderInfo;
+import beans.BidderLog;
+import dao.TenderLogDao;
 import dao.ModProjNotifyDao;
 import dao.NewProjInfoDao;
 import dao.RevChangeNotifyDao;
-import dao.StuInfoDao;
-import dao.StuLogDao;
+import dao.BidderInfoDao;
+import dao.BidderLogDao;
 import tools.Tools;
 
 /**
@@ -51,22 +51,22 @@ public class LoginDetection extends HttpServlet {
 		
 		//新建Dao
 		NewProjInfoDao notify_dao = new NewProjInfoDao();
-		StuInfoDao stu_info_dao = new StuInfoDao();
-		AdminLogDao admin_log_dao = new AdminLogDao();
+		BidderInfoDao bidder_info_dao = new BidderInfoDao();
+		TenderLogDao tender_log_dao = new TenderLogDao();
 		ModProjNotifyDao del_proj_info_dao = new ModProjNotifyDao();
 		RevChangeNotifyDao rev_notify_dao = new RevChangeNotifyDao();
 		
-		List<AdminLog> admin_log = null;
+		List<TenderLog> tender_log = null;
 		try {
-			admin_log = admin_log_dao.findAllAdminLog();
+			tender_log = tender_log_dao.findAllTenderLog();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		StuLogDao stu_log_dao = new StuLogDao();
-		List<StuLog> stu_log = null;
+		BidderLogDao bidder_log_dao = new BidderLogDao();
+		List<BidderLog> bidder_log = null;
 		try {
-			stu_log = stu_log_dao.findAllStuLog();
+			bidder_log = bidder_log_dao.findAllBidderLog();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -80,10 +80,10 @@ public class LoginDetection extends HttpServlet {
 		System.out.println(type);
 		if(type.equals("招标方登录")) {
 			boolean isFind = false;
-			for(int i=0; i<admin_log.size(); i++) {
-				if(acct.equals(admin_log.get(i).getAdmin_acct())) {
+			for(int i=0; i<tender_log.size(); i++) {
+				if(acct.equals(tender_log.get(i).getTender_acct())) {
 					isFind = true;
-					if(pwd.equals(admin_log.get(i).getAdmin_pwd())) {
+					if(pwd.equals(tender_log.get(i).getTender_pwd())) {
 						HttpSession session = request.getSession();
 						// 手动设置session的有效期为30分钟
 						String sessionId = session.getId();
@@ -92,8 +92,8 @@ public class LoginDetection extends HttpServlet {
 						cookie.setPath(request.getContextPath());
 						response.addCookie(cookie);
 						// 登录成功后要存入用户的登录状态，key是用户对象的String形式value就是用户对象(model)！！别的页面应该能用到
-						session.setAttribute("acct", admin_log.get(i).getAdmin_acct());
-						out.print("admin_ok");
+						session.setAttribute("acct", tender_log.get(i).getTender_acct());
+						out.print("tender_ok");
 						break;
 					}
 					else {
@@ -108,10 +108,10 @@ public class LoginDetection extends HttpServlet {
 		}
 		else {
 			boolean isFind = false;
-			for(int i=0; i<stu_log.size(); i++) {
-				if(acct.equals(stu_log.get(i).getStu_acct())) {
+			for(int i=0; i<bidder_log.size(); i++) {
+				if(acct.equals(bidder_log.get(i).getBidder_acct())) {
 					isFind = true;
-					if(pwd.equals(stu_log.get(i).getStu_pwd())) {
+					if(pwd.equals(bidder_log.get(i).getBidder_pwd())) {
 						HttpSession session = request.getSession();
 						// 手动设置session的有效期为30分钟
 						String sessionId = session.getId();
@@ -120,29 +120,29 @@ public class LoginDetection extends HttpServlet {
 						cookie.setPath(request.getContextPath());
 						response.addCookie(cookie);
 						// 登录成功后要存入用户的登录状态，key是用户对象的String形式value就是用户对象(model)！！别的页面应该能用到
-						session.setAttribute("acct", stu_log.get(i).getStu_acct());
-						StuInfo stu_info = null;
-						String stu_num = null;
+						session.setAttribute("acct", bidder_log.get(i).getBidder_acct());
+						BidderInfo bidder_info = null;
+						String bidder_num = null;
 						try {
-							stu_info = stu_info_dao.dispStuInfo(acct);
+							bidder_info = bidder_info_dao.dispBidderInfo(acct);
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						
-						if(stu_info == null) {
-							stu_num = "";
+						if(bidder_info == null) {
+							bidder_num = "";
 						} else {
-							stu_num = stu_info.getStu_num();
+							bidder_num = bidder_info.getBidder_num();
 						}
 						
 						List<String> new_notify_list = null;
 						List<String> del_notify_list = null;
 						List<String> rev_notify_list = null;
 						try {
-							new_notify_list = notify_dao.findNewProjNotify(stu_num);
-							del_notify_list = del_proj_info_dao.findModProjNotify(stu_num);
-							rev_notify_list = rev_notify_dao.findRevChangeNotify(stu_num);
+							new_notify_list = notify_dao.findNewProjNotify(bidder_num);
+							del_notify_list = del_proj_info_dao.findModProjNotify(bidder_num);
+							rev_notify_list = rev_notify_dao.findRevChangeNotify(bidder_num);
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -150,7 +150,7 @@ public class LoginDetection extends HttpServlet {
 						session.setAttribute("new_proj_notify", new_notify_list);
 						session.setAttribute("del_notify_list", del_notify_list);
 						session.setAttribute("rev_notify_list", rev_notify_list);
-						out.print("stu_ok");
+						out.print("bidder_ok");
 						break;
 					}
 					else {

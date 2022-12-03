@@ -6,7 +6,7 @@ public class DBUtil {
 	public static Connection getConnection() throws Exception{
 		String driver = "com.mysql.cj.jdbc.Driver";            //驱动程序名
 		String user = "root";                               //数据库用户名
-		String password = "123456";                        //数据库用户密码
+		String password = "1234";                        //数据库用户密码
 		String dbName = "siemis";              //数据库名
 		String url1 = "jdbc:mysql://127.0.0.1:3306/" + dbName;
 		String url2 = "?user=" + user + "&password=" + password;

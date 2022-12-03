@@ -52,11 +52,11 @@
     		if(httpRequest.readyState == 4) {
     			if(httpRequest.status == 200) {
     				var info=httpRequest.responseText;
-    				if(info == "admin_ok") {
-    					window.location.href = "admin_index.jsp";
+    				if(info == "tender_ok") {
+    					window.location.href = "tender_index.jsp";
     				}
-    				else if(info == "stu_ok") {
-    					window.location.href = "stu_index.jsp";
+    				else if(info == "bidder_ok") {
+    					window.location.href = "bidder_index.jsp";
     				}
     				else {
     					alert(info);

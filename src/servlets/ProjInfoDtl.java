@@ -12,7 +12,7 @@ import beans.IeProg;
 import dao.IeProgDao;
 
 /**
- * Servlet implementation class AdminStuInfoDtl
+ * Servlet implementation class TenderBidderInfoDtl
  */
 @WebServlet("/ProjInfoDtl")
 public class ProjInfoDtl extends HttpServlet {
@@ -43,7 +43,7 @@ public class ProjInfoDtl extends HttpServlet {
 			e.printStackTrace();
 		}
 		request.setAttribute("proinfo_list", proj_info);
-		request.getRequestDispatcher("admin_proj_info_dtl.jsp").forward(request, response);
+		request.getRequestDispatcher("tender_proj_info_dtl.jsp").forward(request, response);
 	}
 
 	/**

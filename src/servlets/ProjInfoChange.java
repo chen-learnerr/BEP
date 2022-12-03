@@ -27,7 +27,7 @@ import dao.FileInfoDao;
 import dao.IeProgDao;
 
 /**
- * Servlet implementation class AdminStuInfoDtl
+ * Servlet implementation class TenderBidderInfoDtl
  */
 @WebServlet("/ProjInfoChange")
 public class ProjInfoChange extends HttpServlet {

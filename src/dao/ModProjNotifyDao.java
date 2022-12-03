@@ -11,7 +11,7 @@ import db.DBUtil;
 import tools.Tools;
 
 public class ModProjNotifyDao {
-	public List<String> findModProjNotify(String stu_numb) throws Exception {  
+	public List<String> findModProjNotify(String bidder_numb) throws Exception {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -29,11 +29,11 @@ public class ModProjNotifyDao {
 				"FROM mod_proj_notify " + 
 				"WHERE mod_proj_notify.proj_id IN ( " + 
 				"	SELECT proj_no " + 
-				"	FROM stu_apply " + 
-				"	WHERE stu_apply.stu_num = ? " + 
+				"	FROM bidder_apply " +
+				"	WHERE bidder_apply.bidder_num = ? " +
 				") AND mod_proj_notify.expiry_date >= ?;";
 		ps = conn.prepareStatement(sql);
-		ps.setString(1, stu_numb);
+		ps.setString(1, bidder_numb);
 		ps.setString(2, sdf.format(sd));
 		rs = ps.executeQuery();
 		while(rs.next()) {

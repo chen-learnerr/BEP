@@ -18,13 +18,13 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for admin_log
+-- Table structure for tender_log
 -- ----------------------------
-DROP TABLE IF EXISTS `admin_log`;
-CREATE TABLE `admin_log`  (
-  `admin_acct` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '管理员账号',
-  `admin_pwd` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '管理员密码',
-  PRIMARY KEY (`admin_acct`) USING BTREE
+DROP TABLE IF EXISTS `tender_log`;
+CREATE TABLE `tender_log`  (
+  `tender_acct` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '招标方账号',
+  `tender_pwd` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '招标方密码',
+  PRIMARY KEY (`tender_acct`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -56,9 +56,9 @@ CREATE TABLE `ie_prog`  (
   `proj_info` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '详细信息',
   `proj_file` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '项目文件',
   PRIMARY KEY (`proj_no`) USING BTREE,
-  INDEX `proj_pub_acct:admin_acct`(`proj_pub_acct`) USING BTREE,
+  INDEX `proj_pub_acct:tender_acct`(`proj_pub_acct`) USING BTREE,
   INDEX `proj_lang`(`proj_lang`) USING BTREE,
-  CONSTRAINT `proj_pub_acct:admin_acct` FOREIGN KEY (`proj_pub_acct`) REFERENCES `admin_log` (`admin_acct`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `proj_pub_acct:tender_acct` FOREIGN KEY (`proj_pub_acct`) REFERENCES `tender_log` (`tender_acct`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB AUTO_INCREMENT = 61 CHARACTER SET = sjis COLLATE = sjis_japanese_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -110,13 +110,13 @@ CREATE TABLE `stu_apply`  (
   `stu_num` varchar(13) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '学号',
   `proj_no` int NOT NULL COMMENT '项目编号',
   `apply_status` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '申请状态',
-  `aprv_admin` varchar(13) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '审批员工号',
+  `aprv_tender` varchar(13) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '审批员工号',
   `apply_att_name` varchar(255) CHARACTER SET sjis COLLATE sjis_japanese_ci NOT NULL COMMENT '附件名称',
   PRIMARY KEY (`stu_num`, `proj_no`) USING BTREE,
   INDEX `stu_num:stu_num`(`stu_num`) USING BTREE,
-  INDEX `aprv_admin:job_num`(`aprv_admin`) USING BTREE,
+  INDEX `aprv_tender:job_num`(`aprv_tender`) USING BTREE,
   INDEX `proj_no:proj_no`(`proj_no`) USING BTREE,
-  CONSTRAINT `aprv_admin:job_num` FOREIGN KEY (`aprv_admin`) REFERENCES `admin_log` (`admin_acct`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `aprv_tender:job_num` FOREIGN KEY (`aprv_tender`) REFERENCES `tender_log` (`tender_acct`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `stu_num:stu_num` FOREIGN KEY (`stu_num`) REFERENCES `stu_info` (`stu_num`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB CHARACTER SET = sjis COLLATE = sjis_japanese_ci ROW_FORMAT = DYNAMIC;
 

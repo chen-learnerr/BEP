@@ -17,10 +17,10 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import beans.StuInfo;
+import beans.BidderInfo;
 import dao.FileInfoDao;
-import dao.StuApplyDao;
-import dao.StuInfoDao;
+import dao.BidderApplyDao;
+import dao.BidderInfoDao;
 
 /**
  * Servlet implementation class ApplySub
@@ -45,27 +45,27 @@ public class ApplySub extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession(true);
-		StuInfoDao stu_info_dao = new StuInfoDao();
-		StuApplyDao stu_apply_dao = new StuApplyDao();
-		String stu_acct = session.getAttribute("acct").toString();
-		StuInfo stu_info = null;
+		BidderInfoDao bidder_info_dao = new BidderInfoDao();
+		BidderApplyDao bidder_apply_dao = new BidderApplyDao();
+		String bidder_acct = session.getAttribute("acct").toString();
+		BidderInfo bidder_info = null;
 
 		boolean isFileExists = false;
 		String uuid = null;
 		
 		try {
-			stu_info = stu_info_dao.dispStuInfo(stu_acct);
+			bidder_info = bidder_info_dao.dispBidderInfo(bidder_acct);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		if(stu_info == null) {
+		if(bidder_info == null) {
 			out.print("noNum");
 		}
 		else {
 			// 获取学号
-			String stu_num = stu_info.getStu_num();
+			String bidder_num = bidder_info.getBidder_num();
 			//文件检查
 			DiskFileItemFactory factory = new DiskFileItemFactory();
 	        ServletFileUpload upload = new ServletFileUpload(factory);
@@ -112,8 +112,8 @@ public class ApplySub extends HttpServlet {
 			
 			if (isFileExists) {
 				try {
-					stu_apply_dao.delStuApply(stu_num, proj_num);
-					stu_apply_dao.insertStuApply(stu_num, proj_num, apply_status, file_name);
+					bidder_apply_dao.delBidderApply(bidder_num, proj_num);
+					bidder_apply_dao.insertBidderApply(bidder_num, proj_num, apply_status, file_name);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

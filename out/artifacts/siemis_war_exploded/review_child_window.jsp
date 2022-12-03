@@ -14,7 +14,7 @@
 			else {
 				var msg="确认更改审核结果吗？";
 		        if(confirm(msg)==true){
-		            var url="AdminReviewSub";
+		            var url="TenderReviewSub";
 					var params="proj_no="+a+"&stu_num="+b+"&proj_status="+proj_status;
 		   			sendRequest(url, params, 'POST', reviewSubResult);
 		        }
@@ -24,9 +24,9 @@
 			if(httpRequest.readyState == 4) {
 	 			if(httpRequest.status == 200) {
 	 				var info = "审核结果变更成功";
-                	var admin_app_list = window.opener;
-                	window.opener.location.reload(); 
-                	admin_app_list.getInfo(info);
+                	var tender_app_list = window.opener;
+                	window.opener.location.reload();
+					tender_app_list.getInfo(info);
                 	window.close();
 	 			}
 	 		}

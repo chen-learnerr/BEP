@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import beans.AdminLog;
-import beans.StuLog;
-import dao.AdminLogDao;
-import dao.StuLogDao;
+import beans.TenderLog;
+import beans.BidderLog;
+import dao.TenderLogDao;
+import dao.BidderLogDao;
 import tools.Tools;
 
 /**
@@ -39,18 +39,18 @@ public class RdstDetection extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		request.setCharacterEncoding("UTF-8");
-		AdminLogDao admin_log_dao = new AdminLogDao();
-		StuLogDao stulogdao = new StuLogDao();
-		List<AdminLog> admin_log = null;
-		List<StuLog> stu_log = null;
+		TenderLogDao tender_log_dao = new TenderLogDao();
+		BidderLogDao bidderlogdao = new BidderLogDao();
+		List<TenderLog> tender_log = null;
+		List<BidderLog> bidder_log = null;
 		try {
-			admin_log = admin_log_dao.findAllAdminLog();
+			tender_log = tender_log_dao.findAllTenderLog();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			stu_log = stulogdao.findAllStuLog();
+			bidder_log = bidderlogdao.findAllBidderLog();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -60,13 +60,13 @@ public class RdstDetection extends HttpServlet {
 		String rpt_pwd = request.getParameter("rpt_pwd");
 		String type = request.getParameter("type");
 		
-		if(admin_log.isEmpty()) {
+		if(tender_log.isEmpty()) {
 			System.out.println("xxx");
 		}
 		if(type.equals("招标方注册")) {
 			boolean isFind = false;
-			for(int i = 0; i < admin_log.size(); i++) {
-				if(acct.equals(admin_log.get(i).getAdmin_acct())) {
+			for(int i = 0; i < tender_log.size(); i++) {
+				if(acct.equals(tender_log.get(i).getTender_acct())) {
 					isFind = true;
 					out.print("注册失败，用户名重复！");
 					break;
@@ -76,7 +76,7 @@ public class RdstDetection extends HttpServlet {
 				if(pwd.equals(rpt_pwd)){
 					try {
 						pwd = Tools.MD5(pwd);
-						admin_log_dao.insertAdminLog(acct, pwd);
+						tender_log_dao.insertTenderLog(acct, pwd);
 						out.print("注册成功！");
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
@@ -90,8 +90,8 @@ public class RdstDetection extends HttpServlet {
 		}
 		else {		
 			boolean isFind = false;
-			for(int i = 0; i < stu_log.size(); i++) {
-				if(acct.equals(stu_log.get(i).getStu_acct())) {
+			for(int i = 0; i < bidder_log.size(); i++) {
+				if(acct.equals(bidder_log.get(i).getBidder_acct())) {
 					isFind = true;
 					out.print("注册失败，用户名重复!");
 				}
@@ -100,7 +100,7 @@ public class RdstDetection extends HttpServlet {
 				if(pwd.equals(rpt_pwd)){
 					try {
 						pwd = Tools.MD5(pwd);
-						stulogdao.insertStuLog(acct, pwd);
+						bidderlogdao.insertBidderLog(acct, pwd);
 						out.print("注册成功！");
 					} catch (Exception e) {
 						// TODO Auto-generated catch block

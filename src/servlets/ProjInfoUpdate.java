@@ -12,7 +12,7 @@ import beans.IeProg;
 import dao.IeProgDao;
 
 /**
- * Servlet implementation class AdminStuInfoDtl
+ * Servlet implementation class TenderBidderInfoDtl
  */
 @WebServlet("/ProjInfoUpdate")
 public class ProjInfoUpdate extends HttpServlet {
@@ -52,7 +52,7 @@ public class ProjInfoUpdate extends HttpServlet {
 		
 		//发送
 		request.setAttribute("proinfo_list", proj_info);
-		request.getRequestDispatcher("admin_proj_info_change.jsp").forward(request, response);
+		request.getRequestDispatcher("tender_proj_info_change.jsp").forward(request, response);
 	}
 
 	/**

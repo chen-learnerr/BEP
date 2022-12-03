@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import beans.StuApply;
+import beans.BidderApply;
 import dao.FileInfoDao;
-import dao.StuApplyDao;
-import dao.StuInfoDao;
+import dao.BidderApplyDao;
+import dao.BidderInfoDao;
 
 /**
  * Servlet implementation class DelApplyInfo
@@ -43,36 +43,36 @@ public class DelApplyInfo extends HttpServlet {
 		
 		//获得账号
 		HttpSession session = request.getSession(true);
-		String stu_acct = session.getAttribute("acct").toString();
+		String bidder_acct = session.getAttribute("acct").toString();
 		
 		//新建Dao
-		StuInfoDao stu_info_dao = new StuInfoDao();
-		StuApplyDao stu_apply_dao = new StuApplyDao();
+		BidderInfoDao bidder_info_dao = new BidderInfoDao();
+		BidderApplyDao bidder_apply_dao = new BidderApplyDao();
 		FileInfoDao file_info_dao = new FileInfoDao();
 		
 		//获得参数
 		int proj_no = Integer.parseInt(request.getParameter("proj_no"));
 		
 		//获得学号
-		String stu_num = null;
+		String bidder_num = null;
 		try {
-			stu_num = stu_info_dao.dispStuInfo(stu_acct).getStu_num();
+			bidder_num = bidder_info_dao.dispBidderInfo(bidder_acct).getBidder_num();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		//获得申请信息
-		StuApply stu_apply = null;
+		BidderApply bidder_apply = null;
 		try {
-			stu_apply = stu_apply_dao.findStuApply(stu_num, proj_no);
+			bidder_apply = bidder_apply_dao.findBidderApply(bidder_num, proj_no);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
 		//删除申请所带附件
-		String file_save_name = stu_apply.getApply_att_name();
+		String file_save_name = bidder_apply.getApply_att_name();
 		try {
 			file_info_dao.delFileInfo(file_save_name);
 		} catch (Exception e1) {
@@ -82,7 +82,7 @@ public class DelApplyInfo extends HttpServlet {
 		
 		//删除申请信息
 		try {
-			stu_apply_dao.delStuApply(stu_num, proj_no);
+			bidder_apply_dao.delBidderApply(bidder_num, proj_no);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

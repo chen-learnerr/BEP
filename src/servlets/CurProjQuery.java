@@ -13,7 +13,7 @@ import beans.IeProg;
 import dao.IeProgDao;
 
 /**
- * Servlet implementation class AdminStuInfoQuery
+ * Servlet implementation class TenderBidderInfoQuery
  */
 @WebServlet("/CurProjQuery")
 public class CurProjQuery extends HttpServlet {
@@ -36,7 +36,7 @@ public class CurProjQuery extends HttpServlet {
 		String name = request.getParameter("proj_name");
 		String school = request.getParameter("proj_school");
 		String country = request.getParameter("proj_country");
-		String stu_num = request.getParameter("stu_num");
+		String bidder_num = request.getParameter("bidder_num");
 		IeProgDao projdao = new IeProgDao();
 		List<IeProg> proList = null;
 		Date cur_date = new Date();
@@ -50,12 +50,12 @@ public class CurProjQuery extends HttpServlet {
 			e.printStackTrace();
 		}	
 		request.setAttribute("proinfo_list", proList);
-		request.setAttribute("stu_num", stu_num);
-		if(request.getParameter("isAdmin") != null) {
-			request.getRequestDispatcher("admin_proj_list.jsp").forward(request, response);
+		request.setAttribute("bidder_num", bidder_num);
+		if(request.getParameter("isTender") != null) {
+			request.getRequestDispatcher("tender_proj_list.jsp").forward(request, response);
 		}
 		else {
-			request.getRequestDispatcher("stu_proj_list.jsp").forward(request, response);
+			request.getRequestDispatcher("bidder_proj_list.jsp").forward(request, response);
 		}
 		
 	}

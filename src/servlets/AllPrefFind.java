@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import beans.StuInfo;
-import beans.StuPref;
-import dao.StuInfoDao;
-import dao.StuPrefDao;
+import beans.BidderInfo;
+import beans.BidderPref;
+import dao.BidderInfoDao;
+import dao.BidderPrefDao;
 
 /**
  * Servlet implementation class AllPrefFind
@@ -36,30 +36,30 @@ public class AllPrefFind extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
-		StuInfoDao stu_info_dao = new StuInfoDao();
+		BidderInfoDao bidder_info_dao = new BidderInfoDao();
 		HttpSession session = request.getSession(true);
-		String stu_acct = session.getAttribute("acct").toString();
-		StuInfo stu_info = null;
+		String bidder_acct = session.getAttribute("acct").toString();
+		BidderInfo bidder_info = null;
 		try {
-			stu_info = stu_info_dao.dispStuInfo(stu_acct);
+			bidder_info = bidder_info_dao.dispBidderInfo(bidder_acct);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(stu_info == null) {
-			request.getRequestDispatcher("stu_pref_error.jsp").forward(request, response);
+		if(bidder_info == null) {
+			request.getRequestDispatcher("bidder_pref_error.jsp").forward(request, response);
 		}
 		else {
-			StuPrefDao stu_pref_dao = new StuPrefDao();
-			List<StuPref> stuPreflist = null;
+			BidderPrefDao bidder_pref_dao = new BidderPrefDao();
+			List<BidderPref> bidderPreflist = null;
 			try {
-				stuPreflist = stu_pref_dao.findAllStuPref(stu_info.getStu_num());
+				bidderPreflist = bidder_pref_dao.findAllBidderPref(bidder_info.getBidder_num());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			request.setAttribute("stuPreflist", stuPreflist);
-			request.getRequestDispatcher("stu_personal_pref.jsp").forward(request, response);
+			request.setAttribute("bidderPreflist", bidderPreflist);
+			request.getRequestDispatcher("bidder_personal_pref.jsp").forward(request, response);
 		}
 	}
 

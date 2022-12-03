@@ -13,7 +13,7 @@ import beans.IeProg;
 import dao.IeProgDao;
 
 /**
- * Servlet implementation class AdminStuInfoQuery
+ * Servlet implementation class TenderBidderInfoQuery
  */
 @WebServlet("/HistProjQuery")
 public class HistProjQuery extends HttpServlet {
@@ -47,11 +47,11 @@ public class HistProjQuery extends HttpServlet {
 			e.printStackTrace();
 		}
 		request.setAttribute("historypro_list", hisproj_info);
-		if(request.getParameter("isAdmin") != null) {
-			request.getRequestDispatcher("admin_history.jsp").forward(request, response);
+		if(request.getParameter("isTender") != null) {
+			request.getRequestDispatcher("tender_history.jsp").forward(request, response);
 		}
 		else {
-			request.getRequestDispatcher("stu_history.jsp").forward(request, response);
+			request.getRequestDispatcher("bidder_history.jsp").forward(request, response);
 		}
 		
 	}

@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import beans.AdminLog;
-import beans.StuLog;
-import dao.AdminLogDao;
-import dao.StuLogDao;
+import beans.TenderLog;
+import beans.BidderLog;
+import dao.TenderLogDao;
+import dao.BidderLogDao;
 import tools.Tools;
 
 /**
@@ -37,20 +37,20 @@ public class PwdChange extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		String acct = session.getAttribute("acct").toString();
 		
-		if(type.equals("stu")) {
-			StuLogDao stu_log_dao = new StuLogDao();
-			StuLog stu_log = null;
+		if(type.equals("bidder")) {
+			BidderLogDao bidder_log_dao = new BidderLogDao();
+			BidderLog bidder_log = null;
 			try {
-				stu_log = stu_log_dao.findStuLog(acct);
+				bidder_log = bidder_log_dao.findBidderLog(acct);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if(orig_pwd.equals(stu_log.getStu_pwd())) {
+			if(orig_pwd.equals(bidder_log.getBidder_pwd())) {
 				if(new_pwd.equals(rpt_new_pwd)) {
 					try {
 						new_pwd = Tools.MD5(new_pwd);
-						stu_log_dao.updateAdminPwd(acct, new_pwd);
+						bidder_log_dao.updateTenderPwd(acct, new_pwd);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -66,19 +66,19 @@ public class PwdChange extends HttpServlet {
 			}
 		}
 		else {
-			AdminLogDao admin_log_dao = new AdminLogDao();
-			AdminLog admin_log = null;
+			TenderLogDao tender_log_dao = new TenderLogDao();
+			TenderLog tender_log = null;
 			try {
-				admin_log = admin_log_dao.findAdminLog(acct);
+				tender_log = tender_log_dao.findTenderLog(acct);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if(orig_pwd.equals(admin_log.getAdmin_pwd())) {
+			if(orig_pwd.equals(tender_log.getTender_pwd())) {
 				if(new_pwd.equals(rpt_new_pwd)) {
 					try {
 						new_pwd = Tools.MD5(new_pwd);
-						admin_log_dao.updateAdminPwd(acct, new_pwd);
+						tender_log_dao.updateTenderPwd(acct, new_pwd);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

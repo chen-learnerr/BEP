@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.IeProg;
-import beans.StuInfo;
+import beans.BidderInfo;
 import dao.IeProgDao;
-import dao.StuInfoDao;
+import dao.BidderInfoDao;
 
 /**
  * Servlet implementation class AllProjDisp
@@ -58,30 +58,30 @@ public class AllProjDisp extends HttpServlet {
 		}	
 		String type = request.getParameter("type");
 		request.setAttribute("proinfo_list", proList);
-		if(type.equals("admin")) {
-			request.getRequestDispatcher("admin_proj_list.jsp").forward(request, response);
+		if(type.equals("tender")) {
+			request.getRequestDispatcher("tender_proj_list.jsp").forward(request, response);
 		}
 		else {
 			HttpSession session = request.getSession(true);
-			String stu_acct = session.getAttribute("acct").toString();
-			StuInfo stu_info = null;
-			String stu_num = null;
-			StuInfoDao stu_info_dao = new StuInfoDao();
+			String bidder_acct = session.getAttribute("acct").toString();
+			BidderInfo bidder_info = null;
+			String bidder_num = null;
+			BidderInfoDao bidder_info_dao = new BidderInfoDao();
 			try {
-				stu_info = stu_info_dao.dispStuInfo(stu_acct);
+				bidder_info = bidder_info_dao.dispBidderInfo(bidder_acct);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-			if(stu_info == null) {
-				stu_num = "";
+			if(bidder_info == null) {
+				bidder_num = "";
 			} else {
-				stu_num = stu_info.getStu_num();
+				bidder_num = bidder_info.getBidder_num();
 			}
 
-			request.setAttribute("stu_num", stu_num);
-			request.getRequestDispatcher("stu_proj_list.jsp").forward(request, response);
+			request.setAttribute("bidder_num", bidder_num);
+			request.getRequestDispatcher("bidder_proj_list.jsp").forward(request, response);
 		}
 	}
 

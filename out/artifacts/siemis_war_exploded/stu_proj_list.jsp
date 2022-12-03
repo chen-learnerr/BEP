@@ -120,17 +120,17 @@
                        	    	if(stu_apply.getApply_status().equals("等待审批")) {
                        	%>
                        	<td>等待审批<a href="javascript:void(0);" onclick="delApplyInfo(<%=indexproj_info.getProj_no()%>)">撤销</a></td>
-                       	<td><%=stu_apply.getAprv_admin() %> </td>
+                       	<td><%=stu_apply.getAprv_tender() %> </td>
                        	<%
                        	    	} else if(stu_apply.getApply_status().equals("通过")) {
                        	%>
                        	<td>审核通过</td>
-                       	<td><%=stu_apply.getAprv_admin() %></td>
+                       	<td><%=stu_apply.getAprv_tender() %></td>
                        	<%  	
                        	    	} else {
 						%>    	
                        	<td>未通过<a href="javascript:void(0);" onclick="applyFileUp(<%=indexproj_info.getProj_no()%>)">重新提交</a></td>
-                       	<td><%=stu_apply.getAprv_admin() %></td>
+                       	<td><%=stu_apply.getAprv_tender() %></td>
                        	<% 
                        	    	}
                        	    }

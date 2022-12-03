@@ -11,7 +11,7 @@ import db.DBUtil;
 import tools.Tools;
 
 public class RevChangeNotifyDao {
-	public List<String> findRevChangeNotify(String stu_num) throws Exception {  
+	public List<String> findRevChangeNotify(String bidder_num) throws Exception {
 		//建立连接
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -28,10 +28,10 @@ public class RevChangeNotifyDao {
 		List<String> info_list = new ArrayList<String>();
 		String sql = "SELECT rev_change_notify.review_info " + 
 				"FROM rev_change_notify " + 
-				"WHERE rev_change_notify.stu_num = ? " + 
+				"WHERE rev_change_notify.bidder_num = ? " +
 				"AND rev_change_notify.expiry_date >= ?;";
 		ps = conn.prepareStatement(sql);
-		ps.setString(1, stu_num);
+		ps.setString(1, bidder_num);
 		ps.setString(2, sdf.format(sd));
 		
 		rs = ps.executeQuery();
@@ -43,7 +43,7 @@ public class RevChangeNotifyDao {
 		return info_list;
 	}
 	
-	public void insertRevChangeNotify(String review_info, String stu_num, int proj_no) throws Exception{
+	public void insertRevChangeNotify(String review_info, String bidder_num, int proj_no) throws Exception{
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -55,9 +55,9 @@ public class RevChangeNotifyDao {
 		java.sql.Date sd;
 		sd = new java.sql.Date(cur_date.getTime());
 		
-		String sql="INSERT INTO rev_change_notify(stu_num, proj_no, review_info, expiry_date) VALUES (?,?,?,?);";
+		String sql="INSERT INTO rev_change_notify(bidder_num, proj_no, review_info, expiry_date) VALUES (?,?,?,?);";
 		ps=conn.prepareStatement(sql); 
-		ps.setString(1, stu_num);
+		ps.setString(1, bidder_num);
 		ps.setInt(2, proj_no);
 		ps.setString(3, review_info);
 		ps.setDate(4, sd);
@@ -69,7 +69,7 @@ public class RevChangeNotifyDao {
 		DBUtil.free(rs, ps, conn);
 	}
 	
-	public void delRevChangeNotify(String stu_num, int proj_no) throws Exception {
+	public void delRevChangeNotify(String bidder_num, int proj_no) throws Exception {
 		//下面是连接信息，不用改
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -77,9 +77,9 @@ public class RevChangeNotifyDao {
 		conn = DBUtil.getConnection();
 		//上面是连接信息，不用改
 		
-		String sql="DELETE FROM rev_change_notify WHERE stu_num=? AND proj_no=?;";
+		String sql="DELETE FROM rev_change_notify WHERE bidder_num=? AND proj_no=?;";
 		ps=conn.prepareStatement(sql); 
-		ps.setString(1, stu_num);
+		ps.setString(1, bidder_num);
 		ps.setInt(2, proj_no);
 		
 		//执行语句并返回结果集

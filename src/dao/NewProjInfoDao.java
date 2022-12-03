@@ -11,7 +11,7 @@ import java.util.List;
 import db.DBUtil;
 
 public class NewProjInfoDao {
-	public List<String> findNewProjNotify(String stu_numb) throws Exception {  
+	public List<String> findNewProjNotify(String bidder_numb) throws Exception {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -29,16 +29,16 @@ public class NewProjInfoDao {
 				+ "FROM new_proj_notify "
 				+ "WHERE (new_proj_notify.country IN ( "
 				+ "	SELECT pref_name "
-				+ "	FROM stu_pref "
-				+ "	WHERE stu_pref.stu_numb = ? AND stu_pref.pref_type = 'country' "
+				+ "	FROM bidder_pref "
+				+ "	WHERE bidder_pref.bidder_numb = ? AND bidder_pref.pref_type = 'country' "
 				+ ") OR new_proj_notify.school IN ( "
 				+ "	SELECT pref_name "
-				+ "	FROM stu_pref "
-				+ "	WHERE stu_pref.stu_numb = ? AND stu_pref.pref_type = 'school'"
+				+ "	FROM bidder_pref "
+				+ "	WHERE bidder_pref.bidder_numb = ? AND bidder_pref.pref_type = 'school'"
 				+ ")) AND new_proj_notify.expiry_date >= ?;";
 		ps = conn.prepareStatement(sql);
-		ps.setString(1, stu_numb);
-		ps.setString(2, stu_numb);
+		ps.setString(1, bidder_numb);
+		ps.setString(2, bidder_numb);
 		ps.setString(3, sdf.format(sd));
 		rs = ps.executeQuery();
 		while(rs.next()) {
